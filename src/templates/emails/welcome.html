@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Dev-Agency</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #4F46E5; color: white; padding: 30px 20px; text-align: center; }
+        .content { padding: 30px; background: #f9f9f9; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+        .button { display: inline-block; padding: 12px 30px; background: #4F46E5; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .feature { background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #4F46E5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Dev-Agency! 🎉</h1>
+        </div>
+        <div class="content">
+            <h2>Hello {{userName}},</h2>
+            <p>Welcome to Dev-Agency! We're excited to have you join our platform connecting talented developers with amazing projects.</p>
+            
+            <h3>Here's what you can do:</h3>
+            
+            <div class="feature">
+                <strong>🎯 Find Projects</strong>
+                <p>Browse through hundreds of development projects looking for your skills.</p>
+            </div>
+            
+            <div class="feature">
+                <strong>💼 Post Projects</strong>
+                <p>Looking for developers? Post your project and receive bids from qualified professionals.</p>
+            </div>
+            
+            <div class="feature">
+                <strong>🤝 Connect & Collaborate</strong>
+                <p>Use our scheduling tools to meet with clients or developers seamlessly.</p>
+            </div>
+            
+            <div class="feature">
+                <strong>⭐ Build Your Reputation</strong>
+                <p>Complete projects, earn reviews, and build your professional profile.</p>
+            </div>
+            
+            <p style="text-align: center; margin: 30px 0;">
+                <a href="{{dashboardLink}}" class="button">Go to Your Dashboard</a>
+            </p>
+            
+            <p>Need help getting started? Check out our <a href="{{dashboardLink}}/help">help center</a> or reply to this email.</p>
+            
+            <p>Happy collaborating!<br>The Dev-Agency Team</p>
+        </div>
+        <div class="footer">
+            <p>© {{year}} Dev-Agency. All rights reserved.</p>
+            <p>You're receiving this email because you recently signed up for Dev-Agency.</p>
+        </div>
+    </div>
+</body>
+</html>

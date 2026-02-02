@@ -1,14 +1,455 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextIndex"] // Enable fullTextIndex for MongoDB
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// User model - core authentication
+model User {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  email                 String        @unique
+  passwordHash          String
+  firstName             String?
+  lastName              String?
+  displayName           String?
+  avatarUrl             String?
+  bio                   String?
+  website               String?
+  location              String?
+  phone                 String?
+
+  // OAuth fields
+  oauthProvider         String?
+  oauthProviderId       String? @unique
+  oauthAccessToken      String?
+  oauthRefreshToken     String?
+  oauthTokenExpiry      DateTime?
+  googleId              String? @unique  // ADD THIS LINE
+
+  // Account status
+  emailVerified         Boolean       @default(false)
+  verificationToken     String?
+  verificationExpires   String?
+  resetToken            String?
+  resetExpires          String?
+  isActive              Boolean       @default(true)
+
+  // Roles
+  role                  UserRole      @default(USER)
+  isVendor              Boolean       @default(false)
+  isBuyer               Boolean       @default(true)
+  isSponsor             Boolean       @default(false)
+
+  // Timestamps
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  lastLogin             DateTime?
+
+  // Relations
+  projects              Project[]     @relation("clientProjects")
+  vendorProfile         VendorProfile?
+  reviews               Review[]      @relation("userReviews")
+  schedulesAsOrganizer  Schedule[]    @relation("organizerSchedules")
+  schedulesAsParticipant Schedule[]   @relation("participantSchedules")
+  calls                 Call[]
+  securityLogs          SecurityLog[]
+  sessions              Session[]
+  
+  @@map("users")
+}
+
+
+// Vendor/Business profile
+model VendorProfile {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId                String        @unique @db.ObjectId
+  user                  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  companyName           String
+  companyLogo           String?
+  description           String?
+  services              String[]
+  industries            String[]
+  technologies          String[]
+  hourlyRate            Float?
+  minProjectSize        Float?
+  employeeCount         Int?
+  foundedYear           Int?
+  
+  // Contact
+  contactEmail          String?
+  contactPhone          String?
+  address               String?
+  country               String?
+  
+  // Social links
+  website               String?
+  linkedin              String?
+  github                String?
+  twitter               String?
+  
+  // Stats
+  totalProjects         Int           @default(0)
+  completedProjects     Int           @default(0)
+  rating                Float         @default(0)
+  reviewCount           Int           @default(0)
+  
+  // Status
+  isVerified            Boolean       @default(false)
+  isFeatured            Boolean       @default(false)
+  isListed              Boolean       @default(false)
+  listingExpires        String?       // MongoDB uses String for dates
+  
+  // Timestamps
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  
+  // Relations
+  projects              Project[]     @relation("vendorProjects")
+  reviews               Review[]      @relation("vendorReviews")
+  awards                Award[]
+  sponsorships          Sponsorship[]
+  bids                  Bid[]         // ADDED: Relation to Bid model
+  
+  @@map("vendor_profiles")
+}
+
+// Project model
+model Project {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  title                 String
+  description           String
+  brief                 String?
+  requirements          Json?         // JSON array of requirements
+  budgetType            BudgetType    @default(FIXED)
+  budgetMin             Float?
+  budgetMax             Float?
+  timeline              String?       // e.g., "1-3 months"
+  
+  // Status
+  status                ProjectStatus @default(DRAFT)
+  visibility            Visibility    @default(PUBLIC)
+  
+  // Categories
+  category              String
+  subcategory           String?
+  technologies          String[]
+  
+  // Relations
+  clientId              String        @db.ObjectId
+  client                User          @relation("clientProjects", fields: [clientId], references: [id], onDelete: Cascade)
+  vendorId              String?       @db.ObjectId
+  vendor                VendorProfile? @relation("vendorProjects", fields: [vendorId], references: [id])
+  
+  // Timestamps
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  postedAt              DateTime?
+  deadline              DateTime?
+  
+  // Bidding
+  bids                  Bid[]
+  reviews               Review[]      // ADDED: Relation to Review model
+  
+  @@map("projects")
+  @@fulltext([title, description])
+}
+
+// Bid/Proposal model
+model Bid {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  projectId             String        @db.ObjectId
+  project               Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  vendorId              String        @db.ObjectId
+  vendor                VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  
+  proposal              String
+  bidAmount             Float
+  timeline              String
+  milestones            Json?         // JSON array of milestones
+  
+  // Status
+  status                BidStatus     @default(PENDING)
+  
+  // Timestamps
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  
+  @@unique([projectId, vendorId])
+  @@map("bids")
+}
+
+// Review model
+model Review {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  rating                Int
+  title                 String
+  content               String
+  isVerified            Boolean       @default(false)
+  wouldRecommend        Boolean?
+  
+  // Relations
+  reviewerId            String        @db.ObjectId
+  reviewer              User          @relation("userReviews", fields: [reviewerId], references: [id], onDelete: Cascade)
+  vendorId              String        @db.ObjectId
+  vendor                VendorProfile @relation("vendorReviews", fields: [vendorId], references: [id], onDelete: Cascade)
+  projectId             String?       @db.ObjectId
+  project               Project?      @relation(fields: [projectId], references: [id])
+  
+  // Timestamps
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  
+  @@map("reviews")
+}
+
+// Schedule/Call model
+model Schedule {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  title                 String
+  description           String?
+  type                  ScheduleType  @default(CALL)
+  
+  // Time
+  startTime             DateTime
+  endTime               DateTime
+  timezone              String
+  
+  // Participants
+  organizerId           String        @db.ObjectId
+  organizer             User          @relation("organizerSchedules", fields: [organizerId], references: [id], onDelete: Cascade)
+  participantId         String        @db.ObjectId
+  participant           User          @relation("participantSchedules", fields: [participantId], references: [id], onDelete: Cascade)
+  
+  // Meeting details
+  meetingLink           String?
+  status                ScheduleStatus @default(SCHEDULED)
+  notes                 String?
+  
+  // Timestamps
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  
+  call                  Call?         // ADDED: Relation to Call model
+  
+  @@map("schedules")
+}
+
+// Call/Meeting model (for recorded calls)
+model Call {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  scheduleId            String        @unique @db.ObjectId
+  schedule              Schedule      @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  
+  // Link to user (could be organizer or participant)
+  userId                String?       @db.ObjectId
+  user                  User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  recordingUrl          String?
+  transcript            String?
+  duration              Int?          // in minutes
+  participants          String[]
+  
+  // Feedback
+  rating                Int?
+  feedback              String?
+  
+  createdAt             DateTime      @default(now())
+  
+  @@map("calls")
+}
+
+// Award model
+model Award {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  title                 String
+  description           String?
+  issuer                String
+  year                  Int
+  imageUrl              String?
+  
+  vendorId              String        @db.ObjectId
+  vendor                VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  
+  createdAt             DateTime      @default(now())
+  
+  @@map("awards")
+}
+
+// Sponsorship program
+model Sponsorship {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId              String        @db.ObjectId
+  vendor                VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  
+  tier                  SponsorTier
+  startDate             DateTime
+  endDate               DateTime
+  amount                Float
+  
+  status                SponsorshipStatus @default(ACTIVE)
+  
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  
+  @@map("sponsorships")
+}
+
+// Session model for authentication
+model Session {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token       String
+  expiresAt   DateTime
+  userAgent   String?
+  ipAddress   String?
+  revoked     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+  @@unique([userId, token])
+  @@map("sessions")
+}
+
+// Security logs for audit
+model SecurityLog {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId                String?       @db.ObjectId
+  user                  User?         @relation(fields: [userId], references: [id])
+  
+  action                String
+  ipAddress             String?
+  userAgent             String?
+  metadata              Json?
+  
+  createdAt             DateTime      @default(now())
+  
+  @@map("security_logs")
+}
+
+// Newsletter subscriptions
+model Newsletter {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  email                 String        @unique
+  name                  String?
+  isSubscribed          Boolean       @default(true)
+  subscribedAt          DateTime      @default(now())
+  unsubscribedAt        DateTime?
+  
+  @@map("newsletters")
+}
+
+// Article/Content model
+model Article {
+  id                    String        @id @default(auto()) @map("_id") @db.ObjectId
+  title                 String
+  slug                  String        @unique
+  excerpt               String?
+  content               String
+  coverImage            String?
+  
+  // Metadata
+  category              ArticleCategory
+  tags                  String[]
+  author                String?
+  readTime              Int?          // in minutes
+  
+  // Status
+  status                ArticleStatus @default(DRAFT)
+  isFeatured            Boolean       @default(false)
+  
+  // Stats
+  views                 Int           @default(0)
+  likes                 Int           @default(0)
+  shares                Int           @default(0)
+  
+  // Timestamps
+  publishedAt           DateTime?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  
+  @@map("articles")
+  @@fulltext([title, content, excerpt])
+}
+
+// Enums (same as before)
+enum UserRole {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+enum ProjectStatus {
+  DRAFT
+  POSTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum BudgetType {
+  FIXED
+  HOURLY
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum BidStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+enum ScheduleType {
+  CALL
+  MEETING
+  CONSULTATION
+  INTERVIEW
+}
+
+enum ScheduleStatus {
+  SCHEDULED
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  RESCHEDULED
+}
+
+enum SponsorTier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum SponsorshipStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum ArticleCategory {
+  GUIDE
+  NEWS
+  AWARD
+  VENDOR_SPOTLIGHT
+  INDUSTRY_INSIGHTS
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
 }
