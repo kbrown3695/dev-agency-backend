@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Deactivated - Dev Agency</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .status-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status-icon svg {
+            width: 80px;
+            height: 80px;
+            color: #8b5cf6;
+        }
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .deactivation-box {
+            background-color: #f5f3ff;
+            border: 2px solid #8b5cf6;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .deactivation-title {
+            color: #5b21b6;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .details {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+        .detail-value {
+            color: #1e293b;
+            font-weight: 600;
+        }
+        .reactivation-info {
+            background-color: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+        .reactivation-title {
+            color: #065f46;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #8b5cf6;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #8b5cf6;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #8b5cf6;
+        }
+        .timeline-date {
+            font-weight: bold;
+            color: #5b21b6;
+            margin-bottom: 5px;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-align: center;
+            margin: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+        .button-secondary {
+            background: #64748b;
+        }
+        .button-secondary:hover {
+            box-shadow: 0 6px 20px rgba(100, 116, 139, 0.4);
+        }
+        .footer {
+            background-color: #f7fafc;
+            padding: 30px;
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .support {
+            color: #718096;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+        .what-happens {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px dashed #e2e8f0;
+        }
+        .happens-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .happens-icon {
+            color: #6366f1;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .happens-content h3 {
+            margin: 0 0 5px 0;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        .happens-content p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Dev Agency</div>
+            <div class="tagline">We'll Miss You!</div>
+        </div>
+        
+        <div class="content">
+            <div class="status-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" />
+                </svg>
+            </div>
+            
+            <h1>Account Successfully Deactivated</h1>
+            
+            <div class="deactivation-box">
+                <div class="deactivation-title">Deactivation Confirmed</div>
+                <p>Your Dev Agency account has been successfully deactivated as requested.</p>
+            </div>
+            
+            <div class="message">
+                Hello <strong>{{userName}}</strong>, we're sorry to see you go. Here are the details of your account deactivation.
+            </div>
+            
+            <div class="details">
+                <div class="detail-item">
+                    <span class="detail-label">Deactivation Date:</span>
+                    <span class="detail-value">{{deactivatedAt}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">IP Address:</span>
+                    <span class="detail-value">{{ipAddress}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">User Agent:</span>
+                    <span class="detail-value">{{userAgent}}</span>
+                </div>
+            </div>
+            
+            <div class="reactivation-info">
+                <div class="reactivation-title">⚠️ Reactivation Window</div>
+                <p>You have <strong>{{reactivationWindow}}</strong> to reactivate your account. 
+                After this period, your account data will be permanently deleted.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Today</div>
+                    <p>Account deactivated. All active sessions terminated.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Within {{reactivationWindow}}</div>
+                    <p>Account can be reactivated with your credentials.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">After {{reactivationWindow}}</div>
+                    <p>Permanent deletion of account data begins.</p>
+                </div>
+            </div>
+            
+            <div class="what-happens">
+                <h2 style="color: #2d3748; text-align: center; margin-bottom: 30px;">What Happens Now?</h2>
+                
+                <div class="happens-item">
+                    <div class="happens-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <div class="happens-content">
+                        <h3>Immediate Actions</h3>
+                        <p>All active sessions have been terminated. You cannot log in to your account.</p>
+                    </div>
+                </div>
+                
+                <div class="happens-item">
+                    <div class="happens-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div class="happens-content">
+                        <h3>Data Retention</h3>
+                        <p>Your data is preserved for {{reactivationWindow}} in case you change your mind.</p>
+                    </div>
+                </div>
+                
+                <div class="happens-item">
+                    <div class="happens-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </div>
+                    <div class="happens-content">
+                        <h3>Final Deletion</h3>
+                        <p>After {{reactivationWindow}}, all your data will be permanently deleted from our systems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© {{year}} Dev Agency. All rights reserved.</p>
+            <p>This is an automated account deactivation confirmation.</p>
+            <div class="support">
+                If you have any questions or want to reactivate your account, contact 
+                <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

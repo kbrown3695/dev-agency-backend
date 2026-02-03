@@ -181,17 +181,21 @@ class EmailService {
     }
   }
 
+  // ==================== PUBLIC METHODS ====================
+
   // Send verification email
-  async sendVerificationEmail(
-    to: string,
-    verificationLink: string,
-    userName: string = 'User',
-  ): Promise<EmailResponse> {
+  async sendVerificationEmail(options: {
+    to: string;
+    verificationToken: string;
+    userName: string;
+  }): Promise<EmailResponse> {
+    const verificationLink = `${process.env['FRONTEND_URL'] || 'http://localhost:5173'}/verify-email?token=${options.verificationToken}`;
+
     return this.sendEmail({
-      to,
+      to: options.to,
       template: 'verification',
       templateData: {
-        userName,
+        userName: options.userName,
         verificationLink,
         year: new Date().getFullYear(),
       },
@@ -208,23 +212,41 @@ class EmailService {
       template: 'welcome',
       templateData: {
         userName,
-        dashboardLink: `${process.env['FRONTEND_URL'] || 'http://localhost:3000'}/dashboard`,
+        dashboardLink: `${process.env['FRONTEND_URL'] || 'http://localhost:5173'}/dashboard`,
+        year: new Date().getFullYear(),
+      },
+    });
+  }
+
+  // Send verification success email
+  async sendVerificationSuccessEmail(options: {
+    to: string;
+    userName: string;
+  }): Promise<EmailResponse> {
+    return this.sendEmail({
+      to: options.to,
+      template: 'verificationSuccess',
+      templateData: {
+        userName: options.userName,
+        loginLink: `${process.env['FRONTEND_URL'] || 'http://localhost:5173'}/login`,
         year: new Date().getFullYear(),
       },
     });
   }
 
   // Send password reset email
-  async sendPasswordResetEmail(
-    to: string,
-    resetLink: string,
-    userName: string = 'User',
-  ): Promise<EmailResponse> {
+  async sendPasswordResetEmail(options: {
+    to: string;
+    resetToken: string;
+    userName: string;
+  }): Promise<EmailResponse> {
+    const resetLink = `${process.env['FRONTEND_URL'] || 'http://localhost:5173'}/reset-password?token=${options.resetToken}`;
+
     return this.sendEmail({
-      to,
+      to: options.to,
       template: 'passwordReset',
       templateData: {
-        userName,
+        userName: options.userName,
         resetLink,
         year: new Date().getFullYear(),
         expiryTime: '1 hour',
@@ -232,59 +254,230 @@ class EmailService {
     });
   }
 
-  // Send project invitation email
-  async sendProjectInvitation(
-    to: string,
-    projectTitle: string,
-    invitationLink: string,
-    inviterName: string,
-    userName: string = 'User',
-  ): Promise<EmailResponse> {
+  // Send password changed email
+  async sendPasswordChangedEmail(options: {
+    to: string;
+    userName: string;
+  }): Promise<EmailResponse> {
     return this.sendEmail({
-      to,
+      to: options.to,
+      template: 'passwordChanged',
+      templateData: {
+        userName: options.userName,
+        supportEmail: process.env['SUPPORT_EMAIL'] || 'support@dev-agency.com',
+        year: new Date().getFullYear(),
+      },
+    });
+  }
+
+  // Send deactivation confirmation email
+  async sendDeactivationConfirmation(options: {
+    to: string;
+    userName: string;
+    deactivatedAt: Date;
+    ipAddress?: string;
+    userAgent?: string;
+  }): Promise<EmailResponse> {
+    const formattedDate = options.deactivatedAt.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    return this.sendEmail({
+      to: options.to,
+      template: 'deactivationConfirmation',
+      templateData: {
+        userName: options.userName,
+        deactivatedAt: formattedDate,
+        ipAddress: options.ipAddress || 'Unknown',
+        userAgent: options.userAgent || 'Unknown',
+        reactivationWindow: '30 days',
+        supportEmail: process.env['SUPPORT_EMAIL'] || 'support@dev-agency.com',
+        year: new Date().getFullYear(),
+      },
+    });
+  }
+
+  // Send reactivation email
+  async sendReactivationEmail(options: {
+    to: string;
+    userName: string;
+    reactivationToken: string;
+    expiresAt: Date;
+  }): Promise<EmailResponse> {
+    const formattedExpiry = options.expiresAt.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    const reactivationLink = `${process.env['FRONTEND_URL'] || 'http://localhost:5173'}/reactivate-account?token=${options.reactivationToken}`;
+
+    return this.sendEmail({
+      to: options.to,
+      template: 'reactivation',
+      templateData: {
+        userName: options.userName,
+        reactivationLink,
+        expiresAt: formattedExpiry,
+        supportEmail: process.env['SUPPORT_EMAIL'] || 'support@dev-agency.com',
+        year: new Date().getFullYear(),
+      },
+    });
+  }
+
+  // Send reactivation success email
+  async sendReactivationSuccessEmail(options: {
+    to: string;
+    userName: string;
+    reactivatedAt: Date;
+  }): Promise<EmailResponse> {
+    const formattedDate = options.reactivatedAt.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    return this.sendEmail({
+      to: options.to,
+      template: 'reactivationSuccess',
+      templateData: {
+        userName: options.userName,
+        reactivatedAt: formattedDate,
+        loginLink: `${process.env['FRONTEND_URL'] || 'http://localhost:5173'}/login`,
+        year: new Date().getFullYear(),
+      },
+    });
+  }
+
+  // Send admin deactivation notification email
+  async sendAdminDeactivationNotification(options: {
+    to: string;
+    userName: string;
+    deactivatedAt: Date;
+    adminEmail: string;
+    adminName: string;
+    reason: string;
+  }): Promise<EmailResponse> {
+    const formattedDate = options.deactivatedAt.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    return this.sendEmail({
+      to: options.to,
+      template: 'adminDeactivation',
+      templateData: {
+        userName: options.userName,
+        deactivatedAt: formattedDate,
+        adminEmail: options.adminEmail,
+        adminName: options.adminName,
+        reason:
+          options.reason === 'admin_action'
+            ? 'administrative action'
+            : options.reason,
+        supportEmail: process.env['SUPPORT_EMAIL'] || 'support@dev-agency.com',
+        year: new Date().getFullYear(),
+      },
+    });
+  }
+
+  // Send admin reactivation email
+  async sendAdminReactivationEmail(options: {
+    to: string;
+    userName: string;
+    adminName: string;
+    reactivatedAt: Date;
+  }): Promise<EmailResponse> {
+    const formattedDate = options.reactivatedAt.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    return this.sendEmail({
+      to: options.to,
+      template: 'adminReactivation',
+      templateData: {
+        userName: options.userName,
+        adminName: options.adminName,
+        reactivatedAt: formattedDate,
+        loginLink: `${process.env['FRONTEND_URL'] || 'http://localhost:5173'}/login`,
+        year: new Date().getFullYear(),
+      },
+    });
+  }
+
+  // Send project invitation email
+  async sendProjectInvitation(options: {
+    to: string;
+    projectTitle: string;
+    invitationLink: string;
+    inviterName: string;
+    userName: string;
+  }): Promise<EmailResponse> {
+    return this.sendEmail({
+      to: options.to,
       template: 'projectInvitation',
       templateData: {
-        userName,
-        projectTitle,
-        invitationLink,
-        inviterName,
+        userName: options.userName,
+        projectTitle: options.projectTitle,
+        invitationLink: options.invitationLink,
+        inviterName: options.inviterName,
         year: new Date().getFullYear(),
       },
     });
   }
 
   // Send bid notification email
-  async sendBidNotification(
-    to: string,
-    projectTitle: string,
-    bidAmount: number,
-    bidderName: string,
-    projectLink: string,
-    userName: string = 'User',
-  ): Promise<EmailResponse> {
+  async sendBidNotification(options: {
+    to: string;
+    projectTitle: string;
+    bidAmount: number;
+    bidderName: string;
+    projectLink: string;
+    userName: string;
+  }): Promise<EmailResponse> {
     return this.sendEmail({
-      to,
+      to: options.to,
       template: 'bidNotification',
       templateData: {
-        userName,
-        projectTitle,
-        bidAmount: `$${bidAmount.toLocaleString()}`,
-        bidderName,
-        projectLink,
+        userName: options.userName,
+        projectTitle: options.projectTitle,
+        bidAmount: `$${options.bidAmount.toLocaleString()}`,
+        bidderName: options.bidderName,
+        projectLink: options.projectLink,
         year: new Date().getFullYear(),
       },
     });
   }
 
   // Send schedule reminder email
-  async sendScheduleReminder(
-    to: string,
-    scheduleTitle: string,
-    startTime: Date,
-    meetingLink: string,
-    userName: string = 'User',
-  ): Promise<EmailResponse> {
-    const formattedTime = startTime.toLocaleString('en-US', {
+  async sendScheduleReminder(options: {
+    to: string;
+    scheduleTitle: string;
+    startTime: Date;
+    meetingLink: string;
+    userName: string;
+  }): Promise<EmailResponse> {
+    const formattedTime = options.startTime.toLocaleString('en-US', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -295,13 +488,13 @@ class EmailService {
     });
 
     return this.sendEmail({
-      to,
+      to: options.to,
       template: 'scheduleReminder',
       templateData: {
-        userName,
-        scheduleTitle,
+        userName: options.userName,
+        scheduleTitle: options.scheduleTitle,
         startTime: formattedTime,
-        meetingLink,
+        meetingLink: options.meetingLink,
         year: new Date().getFullYear(),
       },
     });

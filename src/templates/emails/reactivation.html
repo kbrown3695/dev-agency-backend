@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reactivate Your Account - Dev Agency</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .reactivation-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .reactivation-icon svg {
+            width: 80px;
+            height: 80px;
+            color: #10b981;
+        }
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .urgency-box {
+            background-color: #f0fdf4;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .urgency-title {
+            color: #065f46;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .message {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .reactivation-box {
+            background-color: #f8fafc;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border: 2px dashed #10b981;
+        }
+        .reactivation-title {
+            color: #065f46;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            margin: 20px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        .expiry-info {
+            color: #dc2626;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+        .details {
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            color: #475569;
+            font-weight: 500;
+        }
+        .detail-value {
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .manual-link {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 30px 0;
+            border-radius: 4px;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        .steps {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        .step-number {
+            background-color: #10b981;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content h3 {
+            margin: 0 0 5px 0;
+            color: #2d3748;
+        }
+        .step-content p {
+            margin: 0;
+            color: #64748b;
+        }
+        .footer {
+            background-color: #f7fafc;
+            padding: 30px;
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .support {
+            color: #718096;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Dev Agency</div>
+            <div class="tagline">Welcome Back!</div>
+        </div>
+        
+        <div class="content">
+            <div class="reactivation-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+            </div>
+            
+            <h1>Reactivate Your Account</h1>
+            
+            <div class="urgency-box">
+                <div class="urgency-title">⏰ Time-Sensitive Action Required</div>
+                <p>Your reactivation link expires on <strong>{{expiresAt}}</strong></p>
+            </div>
+            
+            <div class="message">
+                Hello <strong>{{userName}}</strong>, we received a request to reactivate your Dev Agency account. 
+                Click the button below to restore your account.
+            </div>
+            
+            <div class="reactivation-box">
+                <div class="reactivation-title">Restore Your Account</div>
+                <p>Click the button below to set a new password and reactivate your account.</p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="{{reactivationLink}}" class="button">Reactivate Account</a>
+                </div>
+                
+                <div class="expiry-info">⚠️ This link expires on: {{expiresAt}}</div>
+            </div>
+            
+            <div class="manual-link">
+                <strong>Or copy this link:</strong><br>
+                {{reactivationLink}}
+            </div>
+            
+            <div class="steps">
+                <h2 style="color: #2d3748; text-align: center; margin-bottom: 30px;">Reactivation Process</h2>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Click Reactivation Link</h3>
+                        <p>Use the button above or copy the manual link to proceed</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Set New Password</h3>
+                        <p>Create a strong, new password for your account security</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Access Restored</h3>
+                        <p>Your account will be immediately reactivated with all data preserved</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="details">
+                <div class="detail-item">
+                    <span class="detail-label">Requested For:</span>
+                    <span class="detail-value">{{userName}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Link Expires:</span>
+                    <span class="detail-value">{{expiresAt}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Status:</span>
+                    <span class="detail-value">Pending Reactivation</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© {{year}} Dev Agency. All rights reserved.</p>
+            <p>If you didn't request this reactivation, please ignore this email.</p>
+            <div class="support">
+                Need help? Contact our support team at 
+                <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

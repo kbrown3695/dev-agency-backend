@@ -44,6 +44,40 @@ export const emailTemplates = {
     subject: 'Upcoming Meeting Reminder - Dev-Agency',
     template: 'schedule-reminder.html',
   },
+  verificationSuccess: {
+    subject: 'Email Verified Successfully - Welcome to Dev Agency!',
+    template: 'verificationSuccess.html',
+  },
+
+  passwordChanged: {
+    subject: 'Password Changed Successfully - Security Notification',
+    template: 'passwordChanged.html',
+  },
+
+  deactivationConfirmation: {
+    subject: 'Account Deactivated - Confirmation',
+    template: 'deactivationConfirmation.html',
+  },
+
+  reactivation: {
+    subject: 'Reactivate Your Dev Agency Account',
+    template: 'reactivation.html',
+  },
+
+  reactivationSuccess: {
+    subject: 'Welcome Back! Your Account Has Been Reactivated',
+    template: 'reactivationSuccess.html',
+  },
+
+  adminDeactivation: {
+    subject: 'Important: Account Deactivated by Administration',
+    template: 'adminDeactivation.html',
+  },
+
+  adminReactivation: {
+    subject: 'Account Restored: Welcome Back to Dev Agency',
+    template: 'adminReactivation.html',
+  },
 };
 
 export default emailConfig;

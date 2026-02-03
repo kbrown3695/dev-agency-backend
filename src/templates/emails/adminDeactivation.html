@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Deactivated by Admin - Dev Agency</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .warning-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .warning-icon svg {
+            width: 80px;
+            height: 80px;
+            color: #ef4444;
+        }
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .alert-box {
+            background-color: #fef2f2;
+            border: 2px solid #ef4444;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .alert-title {
+            color: #991b1b;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .message {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .admin-box {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .admin-title {
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .admin-details {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .admin-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        .admin-label {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .admin-value {
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .details {
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            color: #475569;
+            font-weight: 500;
+        }
+        .detail-value {
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .appeal-process {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+        .appeal-title {
+            color: #92400e;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-align: center;
+            margin: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+        .button-secondary {
+            background: #64748b;
+        }
+        .button-secondary:hover {
+            box-shadow: 0 6px 20px rgba(100, 116, 139, 0.4);
+        }
+        .footer {
+            background-color: #f7fafc;
+            padding: 30px;
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .support {
+            color: #718096;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+        .next-steps {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px dashed #e2e8f0;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .step-icon {
+            color: #ef4444;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content h3 {
+            margin: 0 0 5px 0;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        .step-content p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Dev Agency</div>
+            <div class="tagline">Account Status Notification</div>
+        </div>
+        
+        <div class="content">
+            <div class="warning-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.07 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+            </div>
+            
+            <h1>Account Deactivated by Administration</h1>
+            
+            <div class="alert-box">
+                <div class="alert-title">⚠️ Administrative Action Taken</div>
+                <p>Your Dev Agency account has been deactivated by platform administration.</p>
+            </div>
+            
+            <div class="message">
+                Hello <strong>{{userName}}</strong>, this email serves as official notification that 
+                your account has been deactivated by Dev Agency administration.
+            </div>
+            
+            <div class="admin-box">
+                <div class="admin-title">Administrative Details</div>
+                <div class="admin-details">
+                    <div class="admin-item">
+                        <div class="admin-label">Admin Name</div>
+                        <div class="admin-value">{{adminName}}</div>
+                    </div>
+                    <div class="admin-item">
+                        <div class="admin-label">Admin Email</div>
+                        <div class="admin-value">{{adminEmail}}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="details">
+                <div class="detail-item">
+                    <span class="detail-label">Deactivation Date:</span>
+                    <span class="detail-value">{{deactivatedAt}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Action Taken By:</span>
+                    <span class="detail-value">Platform Administration</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Reason:</span>
+                    <span class="detail-value">{{reason}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Account Status:</span>
+                    <span class="detail-value">Deactivated ❌</span>
+                </div>
+            </div>
+            
+            <div class="appeal-process">
+                <div class="appeal-title">Appeal Process</div>
+                <p>If you believe this action was taken in error, you have the right to appeal this decision. 
+                Contact our support team with your account details and explanation.</p>
+            </div>
+            
+            <div class="next-steps">
+                <h2 style="color: #2d3748; text-align: center; margin-bottom: 30px;">What This Means</h2>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <div class="step-content">
+                        <h3>Immediate Access Revoked</h3>
+                        <p>You can no longer log in or access your Dev Agency account</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4 4 0 003 15z" />
+                        </svg>
+                    </div>
+                    <div class="step-content">
+                        <h3>Data Preservation</h3>
+                        <p>Your account data will be preserved for review during the appeal period</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="step-content">
+                        <h3>Appeal Rights</h3>
+                        <p>You have the right to appeal this decision within 30 days</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <a href="mailto:{{supportEmail}}" class="button">Contact Support for Appeal</a>
+                <a href="{{termsLink}}" class="button button-secondary">Review Terms of Service</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© {{year}} Dev Agency. All rights reserved.</p>
+            <p>This is an official administrative notification regarding your account status.</p>
+            <div class="support">
+                For appeal requests or questions about this action, contact 
+                <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -28,7 +28,7 @@ model User {
   oauthAccessToken      String?
   oauthRefreshToken     String?
   oauthTokenExpiry      DateTime?
-  googleId              String? @unique  // ADD THIS LINE
+  googleId              String? @unique
 
   // Account status
   emailVerified         Boolean       @default(false)
@@ -37,6 +37,14 @@ model User {
   resetToken            String?
   resetExpires          String?
   isActive              Boolean       @default(true)
+  
+  // Deactivation fields
+  deactivatedAt         DateTime?
+  deactivatedBy         String?       @db.ObjectId
+  deactivationType      String?       // 'user_initiated', 'admin', 'system'
+  
+  // Preferences
+  preferences           Json?         @default("{}")
 
   // Roles
   role                  UserRole      @default(USER)

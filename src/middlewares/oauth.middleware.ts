@@ -143,7 +143,25 @@ passport.deserializeUser(async (id: string, done) => {
       return done(new Error('User not found'), null);
     }
 
-    done(null, user);
+    // Create a properly typed user object that matches Express.User interface
+    const authUser = {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      firstName: user.firstName || '', // Convert null to empty string
+      lastName: user.lastName || null,
+      displayName: user.displayName || null,
+      avatarUrl: user.avatarUrl || null,
+      location: user.location || null,
+      phone: user.phone || null,
+      emailVerified: user.emailVerified,
+      isActive: user.isActive,
+      lastLogin: user.lastLogin,
+      // Add vendorProfile as an additional property
+      vendorProfile: user.vendorProfile,
+    };
+
+    done(null, authUser);
   } catch (error: any) {
     done(error, null);
   }

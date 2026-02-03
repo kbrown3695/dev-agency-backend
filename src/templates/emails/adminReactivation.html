@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Reactivated by Admin - Dev Agency</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .restore-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .restore-icon svg {
+            width: 80px;
+            height: 80px;
+            color: #3b82f6;
+        }
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .success-box {
+            background-color: #eff6ff;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .success-title {
+            color: #1e40af;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .message {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .admin-box {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .admin-title {
+            color: #475569;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .admin-badge {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 10px 0;
+        }
+        .details {
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            color: #475569;
+            font-weight: 500;
+        }
+        .detail-value {
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .welcome-back {
+            background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .welcome-title {
+            color: #1e40af;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            margin: 20px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        .security-note {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 30px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .guidelines {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px dashed #e2e8f0;
+        }
+        .guideline {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .guideline-icon {
+            color: #3b82f6;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .guideline-content h3 {
+            margin: 0 0 5px 0;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        .guideline-content p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+        .footer {
+            background-color: #f7fafc;
+            padding: 30px;
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .support {
+            color: #718096;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Dev Agency</div>
+            <div class="tagline">Account Restored - Welcome Back!</div>
+        </div>
+        
+        <div class="content">
+            <div class="restore-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            
+            <h1>Account Reactivated by Administration</h1>
+            
+            <div class="success-box">
+                <div class="success-title">✅ Account Successfully Restored</div>
+                <p>Your Dev Agency account has been reactivated by platform administration.</p>
+            </div>
+            
+            <div class="message">
+                Hello <strong>{{userName}}</strong>, we're pleased to inform you that your account 
+                has been reactivated and restored to full functionality.
+            </div>
+            
+            <div class="admin-box">
+                <div class="admin-title">Restoration Authorized By</div>
+                <div class="admin-badge">{{adminName}}</div>
+                <p>Platform Administrator</p>
+            </div>
+            
+            <div class="details">
+                <div class="detail-item">
+                    <span class="detail-label">Reactivated On:</span>
+                    <span class="detail-value">{{reactivatedAt}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Restored By:</span>
+                    <span class="detail-value">{{adminName}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Account Status:</span>
+                    <span class="detail-value">Active ✅</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Data Integrity:</span>
+                    <span class="detail-value">100% Preserved</span>
+                </div>
+            </div>
+            
+            <div class="welcome-back">
+                <div class="welcome-title">Welcome Back to Dev Agency!</div>
+                <p>All your projects, settings, and data have been restored exactly as before.</p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="{{loginLink}}" class="button">Login to Your Account</a>
+                </div>
+                
+                <p style="color: #475569; font-size: 14px;">
+                    You can now access all platform features and continue your work.
+                </p>
+            </div>
+            
+            <div class="security-note">
+                <strong>Security Note:</strong> For security purposes, all previous sessions have been terminated. 
+                You'll need to log in with your credentials.
+            </div>
+            
+            <div class="guidelines">
+                <h2 style="color: #2d3748; text-align: center; margin-bottom: 30px;">Platform Guidelines</h2>
+                
+                <div class="guideline">
+                    <div class="guideline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <div class="guideline-content">
+                        <h3>Community Standards</h3>
+                        <p>Please review our community guidelines to ensure positive platform experience</p>
+                    </div>
+                </div>
+                
+                <div class="guideline">
+                    <div class="guideline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <div class="guideline-content">
+                        <h3>Account Security</h3>
+                        <p>Consider enabling two-factor authentication for enhanced security</p>
+                    </div>
+                </div>
+                
+                <div class="guideline">
+                    <div class="guideline-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                    </div>
+                    <div class="guideline-content">
+                        <h3>Support Available</h3>
+                        <p>Our support team is available if you have any questions or need assistance</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <a href="{{guidelinesLink}}" class="button" style="background: #64748b;">Review Guidelines</a>
+                <a href="{{supportEmail}}" class="button">Contact Support</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© {{year}} Dev Agency. All rights reserved.</p>
+            <p>This is an official administrative notification regarding your account status.</p>
+            <div class="support">
+                For questions or assistance, contact our support team at 
+                <a href="mailto:{{supportEmail}}">{{supportEmail}}</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
